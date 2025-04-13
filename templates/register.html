@@ -68,13 +68,38 @@
             </div>
         </div>
         
+        <div class="card mt-4 mb-4">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">Баталгаажуулах зургийн шаардлага</h4>
+            </div>
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-5 mb-3 mb-md-0">
+                        <img src="{{ url_for('static', filename='images/verification_example.jpg') }}" alt="Баталгаажуулах зургийн жишээ" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-7">
+                        <div class="alert alert-warning mb-0">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Баталгаажуулах шаардлагууд:</strong>
+                            <ul class="mt-2 mb-0">
+                                <li>Зурагт таны нүүр тод харагдах ёстой</li>
+                                <li>"Мон Эскорт" гэж бичсэн цаас барьсан байх ёстой</li>
+                                <li>Цаасан дээр өнөөдрийн огноо байх ёстой</li>
+                                <li>Зураг тод, сайн гэрэлтэй байх ёстой</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="card mt-4">
             <div class="card-header">
                 <h4 class="mb-0">Бүртгүүлэх үйл явц</h4>
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-12">
                         <ol class="mb-0">
                             <li>Хэрэглэгчийн нэр, нууц үгээр бүртгэл үүсгэх</li>
                             <li>Профайлаа мэдээллээрээ бөглөх</li>
@@ -82,13 +107,6 @@
                             <li>Админы зөвшөөрлийг хүлээх (ихэвчлэн 24 цагийн дотор)</li>
                             <li>Зөвшөөрөгдсөний дараа таны профайл үйлчлүүлэгчдэд харагдах болно</li>
                         </ol>
-                    </div>
-                    <div class="col-md-5">
-                        <p><strong>Баталгаажуулах зургийн жишээ:</strong></p>
-                        <img src="{{ url_for('static', filename='images/verification_example.jpg') }}" alt="Баталгаажуулах зургийн жишээ" class="img-fluid rounded">
-                        <small class="d-block mt-2 text-muted">
-                            <i class="fas fa-info-circle"></i> Зурагт таны нүүр тод харагдах, "Мон Эскорт" гэж бичсэн цаас болон өнөөдрийн огноо зайлшгүй харагдах ёстойг анхаарна уу.
-                        </small>
                     </div>
                 </div>
             </div>
