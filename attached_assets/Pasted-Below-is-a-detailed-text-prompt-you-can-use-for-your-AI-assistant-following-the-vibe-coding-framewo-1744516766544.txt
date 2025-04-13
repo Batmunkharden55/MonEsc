@@ -1,0 +1,88 @@
+Below is a detailed text prompt you can use for your AI assistant, following the vibe coding framework (Specification, Rules, Oversight). You can copy and adjust this prompt as needed:
+
+---
+
+**Text Prompt for Creating an Escort Web App**
+
+**Specification:**  
+Build a web app where clients can browse and find escorts. There will be three distinct user flows:
+
+1. **Clients (No Sign-Up Required):**  
+   - Clients can view a list of approved escort profiles.
+   - They can filter the list by **age**, **weight**, and **location**.
+   - When a client selects an escort, the escort’s phone number is revealed.
+   - Clients receive a persistent notification on each page reading:  
+     **“Урьдчилгаа өгж болохгүй”**
+
+2. **Escorts (Registration & Profile Creation):**  
+   - Escorts must sign up and sign in.
+   - On sign up, they create a profile that includes the following fields:  
+     - Nickname  
+     - Phone Number  
+     - Age  
+     - Weight  
+     - Height  
+     - Location (text input)
+   - To verify their identity, escorts must upload an image. The image should feature the escort holding a paper that shows the text “Mon Escort” followed by the current date.  
+     *Note: I will provide a reference image for clarity.*
+   - The uploaded image is not published automatically. Instead, it is sent to an Admin verification page.
+
+3. **Admin:**  
+   - Admin access is controlled by a sign in code – **"215899"**.  
+   - The admin dashboard displays pending escort profiles that require verification (based on the uploaded image).
+   - The admin can review and choose to approve or reject each profile.  
+   - Upon approval, the escort profile appears on the public escort listing for clients.
+
+---
+
+**Rules (Based on Vibe Coding Principles):**
+
+- **Coding Preferences:**  
+  - **Simplicity:** Write code with clarity, minimizing complexity.  
+  - **No Duplication:** Reuse functions and modules; avoid repetitive code.  
+  - **Organization:** Keep each source file under 300 lines and create clear modular divisions (for example, separate files for routing, authentication, and verification processes).  
+  - **Documentation:** After implementing a major feature (e.g., client filtering, escort registration, admin dashboard), create a brief summary in `/docs/[feature].md`.
+
+- **Technical Stack:**  
+  - **Backend:** Use Python (e.g., with a framework like Flask or Django).  
+  - **Frontend:** Use HTML and JavaScript.  
+  - **Data Storage:** Use an SQL database to maintain profiles and verification status.  
+  - **Testing:** Include tests for essential functions, such as user registration and admin approval.
+
+- **Workflow Preferences:**  
+  - **Incremental Development:** Break tasks into small, manageable stages. Pause for review and confirmation after each step.  
+  - **Oversight:** Maintain a log (e.g., `progress.md`) showing completed work and outlining pending steps.  
+  - **Plan Before Major Changes:** Use a `plan.md` document to outline significant changes before implementation.
+
+- **Communication Preferences:**  
+  - **Summaries:** After every major component or change, provide a summary of what was implemented.  
+  - **Clarifications:** If any part of the project or its specification is unclear, ask for clarification before proceeding.  
+  - **Change Classification:** Label changes as Small, Medium, or Large based on their impact (e.g., profile submission is Small; rewriting the entire authentication module is Large).
+
+---
+
+**Additional Oversight Instructions:**
+
+- **Client Experience:**  
+  - Ensure the filtering and notification system is always active so that clients are constantly reminded with “Урьдчилгаа өгж болохгүй.”
+  
+- **Escort Verification:**  
+  - The image upload functionality must enforce that the escort’s image clearly displays the required text (“Mon Escort” and the current date).
+  - The app should automatically forward uploaded images to the admin dashboard for review.
+  
+- **Admin Dashboard:**  
+  - Build a secure sign-in page that only grants access if the correct code ("215899") is used.
+  - Create an intuitive interface for admins to view pending verification profiles and process approval or rejection.
+  
+- **Edge Case Handling:**  
+  - For any profile missing required fields, prompt the escort to correct the submission.
+  - If an escort’s image does not meet verification criteria, notify them and instruct to resubmit.
+
+---
+
+**Final Check:**  
+Before proceeding with the full implementation, confirm that all three user flows (client, escort, admin) are isolated with the proper validations and controls. A set of tests should cover each functionality to ensure scalability and maintainability.
+
+---
+
+This prompt is structured to follow the vibe coding principles by specifying clear requirements, explicit constraints, and oversight mechanisms. It should allow your AI assistant to generate the code efficiently while ensuring clarity and focus throughout the development process. Enjoy building your app!
