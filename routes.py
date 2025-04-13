@@ -38,6 +38,11 @@ def escort_list():
     # Get the filtered escorts
     escorts = query.all()
     
+    # Get verification images for each escort
+    for escort in escorts:
+        # Get the most recent verification image for each profile
+        escort.latest_image = VerificationImage.query.filter_by(profile_id=escort.id).order_by(VerificationImage.upload_date.desc()).first()
+    
     # Get unique locations for filter dropdown
     locations = db.session.query(Profile.location).filter_by(is_verified=True).distinct().all()
     locations = [loc[0] for loc in locations]

@@ -39,6 +39,15 @@
                     {% for escort in escorts %}
                     <div class="col">
                         <div class="card h-100">
+                            {% if escort.latest_image %}
+                                <img src="{{ url_for('static', filename='uploads/' + escort.latest_image.filename) }}" 
+                                    class="card-img-top" alt="{{ escort.nickname }}" 
+                                    style="height: 250px; object-fit: cover;">
+                            {% else %}
+                                <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 250px;">
+                                    <span><i class="fas fa-image fa-3x"></i></span>
+                                </div>
+                            {% endif %}
                             <div class="card-body">
                                 <h5 class="card-title">{{ escort.nickname }}</h5>
                                 <div class="mb-3">
