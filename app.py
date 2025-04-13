@@ -1,14 +1,17 @@
 import os
 import logging
-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_login import LoginManager
+from wtforms.validators import DataRequired, ValidationError
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
+
+# Customize WTForms validators error messages to Mongolian
+DataRequired.message = "Энэ талбар заавал шаардлагатай."
 
 class Base(DeclarativeBase):
     pass
