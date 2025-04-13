@@ -10,67 +10,289 @@
     </div>
 </div>
 
-<!-- Filter section -->
-<div class="card mb-4">
-    <div class="card-header">
-        <h5 class="mb-0">Эскортууд шүүх</h5>
-    </div>
-    <div class="card-body">
-        <form method="get" action="{{ url_for('escort_list') }}" class="row g-3">
-            <div class="col-md-4">
-                <label for="age" class="form-label">Нас</label>
-                <input type="number" class="form-control" id="age" name="age" min="18" max="99" value="{{ age_filter or '' }}">
-            </div>
-            <div class="col-md-4">
-                <label for="weight" class="form-label">Жин (кг)</label>
-                <input type="number" class="form-control" id="weight" name="weight" min="30" max="200" value="{{ weight_filter or '' }}">
-            </div>
-            <div class="col-md-4">
-                <label for="location" class="form-label">Байршил</label>
-                <input type="text" class="form-control" id="location" name="location" value="{{ location_filter or '' }}" list="locationList">
-                <datalist id="locationList">
-                    {% for location in locations %}
-                    <option value="{{ location }}">
-                    {% endfor %}
-                </datalist>
-            </div>
-            <div class="col-12 text-end">
-                <a href="{{ url_for('escort_list') }}" class="btn btn-secondary me-2">Шүүлтүүр цэвэрлэх</a>
-                <button type="submit" class="btn btn-primary">Шүүх</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- Escorts list -->
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    {% if escorts %}
-        {% for escort in escorts %}
-        <div class="col">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">{{ escort.nickname }}</h5>
-                    <div class="mb-3">
-                        <span class="badge bg-primary me-1">{{ escort.age }} нас</span>
-                        <span class="badge bg-primary me-1">{{ escort.weight }} кг</span>
-                        <span class="badge bg-primary">{{ escort.height }} см</span>
+<!-- Filter categories section -->
+<div class="mb-4">
+    <ul class="nav nav-tabs" id="escortCategories" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true">
+                Бүгд
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="age-tab" data-bs-toggle="tab" data-bs-target="#age" type="button" role="tab" aria-controls="age" aria-selected="false">
+                Насаар
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="weight-tab" data-bs-toggle="tab" data-bs-target="#weight" type="button" role="tab" aria-controls="weight" aria-selected="false">
+                Жингээр
+            </button>
+        </li>
+    </ul>
+    
+    <div class="tab-content p-3 border border-top-0 rounded-bottom" id="escortCategoriesContent">
+        <!-- All escorts tab -->
+        <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+            <h5 class="mb-3">Бүх эскортууд</h5>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% if escorts %}
+                    {% for escort in escorts %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ escort.nickname }}</h5>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary me-1">{{ escort.age }} нас</span>
+                                    <span class="badge bg-primary me-1">{{ escort.weight }} кг</span>
+                                    <span class="badge bg-primary">{{ escort.height }} см</span>
+                                </div>
+                                <p class="card-text">
+                                    <i class="fas fa-map-marker-alt me-2"></i>{{ escort.location }}
+                                </p>
+                                <a href="{{ url_for('escort_detail', profile_id=escort.id) }}" class="btn btn-primary stretched-link">Дэлгэрэнгүй харах</a>
+                            </div>
+                        </div>
                     </div>
-                    <p class="card-text">
-                        <i class="fas fa-map-marker-alt me-2"></i>{{ escort.location }}
-                    </p>
-                    <a href="{{ url_for('escort_detail', profile_id=escort.id) }}" class="btn btn-primary stretched-link">Дэлгэрэнгүй харах</a>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Одоогоор баталгаажсан эскорт байхгүй байна.
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Age groups tab -->
+        <div class="tab-pane fade" id="age" role="tabpanel" aria-labelledby="age-tab">
+            <!-- Young group (18-25) -->
+            <div class="mb-5">
+                <h5 class="border-bottom pb-2 mb-3">Залуу (18-25 нас)</h5>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% set found_young = false %}
+                    {% for escort in escorts %}
+                        {% if escort.age >= 18 and escort.age <= 25 %}
+                            {% set found_young = true %}
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ escort.nickname }}</h5>
+                                        <div class="mb-3">
+                                            <span class="badge bg-primary me-1">{{ escort.age }} нас</span>
+                                            <span class="badge bg-primary me-1">{{ escort.weight }} кг</span>
+                                            <span class="badge bg-primary">{{ escort.height }} см</span>
+                                        </div>
+                                        <p class="card-text">
+                                            <i class="fas fa-map-marker-alt me-2"></i>{{ escort.location }}
+                                        </p>
+                                        <a href="{{ url_for('escort_detail', profile_id=escort.id) }}" class="btn btn-primary stretched-link">Дэлгэрэнгүй харах</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if not found_young %}
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Энэ ангилалд эскорт олдсонгүй.
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Middle-aged group (26-33) -->
+            <div class="mb-5">
+                <h5 class="border-bottom pb-2 mb-3">Дунд (26-33 нас)</h5>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% set found_middle = false %}
+                    {% for escort in escorts %}
+                        {% if escort.age >= 26 and escort.age <= 33 %}
+                            {% set found_middle = true %}
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ escort.nickname }}</h5>
+                                        <div class="mb-3">
+                                            <span class="badge bg-primary me-1">{{ escort.age }} нас</span>
+                                            <span class="badge bg-primary me-1">{{ escort.weight }} кг</span>
+                                            <span class="badge bg-primary">{{ escort.height }} см</span>
+                                        </div>
+                                        <p class="card-text">
+                                            <i class="fas fa-map-marker-alt me-2"></i>{{ escort.location }}
+                                        </p>
+                                        <a href="{{ url_for('escort_detail', profile_id=escort.id) }}" class="btn btn-primary stretched-link">Дэлгэрэнгүй харах</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if not found_middle %}
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Энэ ангилалд эскорт олдсонгүй.
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Older group (34-40) -->
+            <div>
+                <h5 class="border-bottom pb-2 mb-3">Ахмад (34-40 нас)</h5>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% set found_older = false %}
+                    {% for escort in escorts %}
+                        {% if escort.age >= 34 and escort.age <= 40 %}
+                            {% set found_older = true %}
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ escort.nickname }}</h5>
+                                        <div class="mb-3">
+                                            <span class="badge bg-primary me-1">{{ escort.age }} нас</span>
+                                            <span class="badge bg-primary me-1">{{ escort.weight }} кг</span>
+                                            <span class="badge bg-primary">{{ escort.height }} см</span>
+                                        </div>
+                                        <p class="card-text">
+                                            <i class="fas fa-map-marker-alt me-2"></i>{{ escort.location }}
+                                        </p>
+                                        <a href="{{ url_for('escort_detail', profile_id=escort.id) }}" class="btn btn-primary stretched-link">Дэлгэрэнгүй харах</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if not found_older %}
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Энэ ангилалд эскорт олдсонгүй.
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        {% endfor %}
-    {% else %}
-        <div class="col-12">
-            <div class="alert alert-info">
-                <i class="fas fa-info-circle me-2"></i>
-                Таны шүүлтүүрт тохирох эскорт олдсонгүй. Шүүлтүүрээ өөрчилж үзнэ үү.
+        
+        <!-- Weight groups tab -->
+        <div class="tab-pane fade" id="weight" role="tabpanel" aria-labelledby="weight-tab">
+            <!-- Thin group -->
+            <div class="mb-5">
+                <h5 class="border-bottom pb-2 mb-3">Нарийн (30-55 кг)</h5>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% set found_thin = false %}
+                    {% for escort in escorts %}
+                        {% if escort.weight >= 30 and escort.weight <= 55 %}
+                            {% set found_thin = true %}
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ escort.nickname }}</h5>
+                                        <div class="mb-3">
+                                            <span class="badge bg-primary me-1">{{ escort.age }} нас</span>
+                                            <span class="badge bg-primary me-1">{{ escort.weight }} кг</span>
+                                            <span class="badge bg-primary">{{ escort.height }} см</span>
+                                        </div>
+                                        <p class="card-text">
+                                            <i class="fas fa-map-marker-alt me-2"></i>{{ escort.location }}
+                                        </p>
+                                        <a href="{{ url_for('escort_detail', profile_id=escort.id) }}" class="btn btn-primary stretched-link">Дэлгэрэнгүй харах</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if not found_thin %}
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Энэ ангилалд эскорт олдсонгүй.
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Medium group -->
+            <div class="mb-5">
+                <h5 class="border-bottom pb-2 mb-3">Дундаж (56-75 кг)</h5>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% set found_medium = false %}
+                    {% for escort in escorts %}
+                        {% if escort.weight >= 56 and escort.weight <= 75 %}
+                            {% set found_medium = true %}
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ escort.nickname }}</h5>
+                                        <div class="mb-3">
+                                            <span class="badge bg-primary me-1">{{ escort.age }} нас</span>
+                                            <span class="badge bg-primary me-1">{{ escort.weight }} кг</span>
+                                            <span class="badge bg-primary">{{ escort.height }} см</span>
+                                        </div>
+                                        <p class="card-text">
+                                            <i class="fas fa-map-marker-alt me-2"></i>{{ escort.location }}
+                                        </p>
+                                        <a href="{{ url_for('escort_detail', profile_id=escort.id) }}" class="btn btn-primary stretched-link">Дэлгэрэнгүй харах</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if not found_medium %}
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Энэ ангилалд эскорт олдсонгүй.
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Overweight group -->
+            <div>
+                <h5 class="border-bottom pb-2 mb-3">Илүүдэл жинтэй (76-200 кг)</h5>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% set found_overweight = false %}
+                    {% for escort in escorts %}
+                        {% if escort.weight >= 76 and escort.weight <= 200 %}
+                            {% set found_overweight = true %}
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ escort.nickname }}</h5>
+                                        <div class="mb-3">
+                                            <span class="badge bg-primary me-1">{{ escort.age }} нас</span>
+                                            <span class="badge bg-primary me-1">{{ escort.weight }} кг</span>
+                                            <span class="badge bg-primary">{{ escort.height }} см</span>
+                                        </div>
+                                        <p class="card-text">
+                                            <i class="fas fa-map-marker-alt me-2"></i>{{ escort.location }}
+                                        </p>
+                                        <a href="{{ url_for('escort_detail', profile_id=escort.id) }}" class="btn btn-primary stretched-link">Дэлгэрэнгүй харах</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if not found_overweight %}
+                        <div class="col-12">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Энэ ангилалд эскорт олдсонгүй.
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    {% endif %}
+    </div>
 </div>
 
 <!-- Client notification reminder -->
