@@ -1,16 +1,16 @@
 {% extends "layout.html" %}
 
-{% block title %}Admin Dashboard{% endblock %}
+{% block title %}Админ удирдлага{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>Admin Dashboard</h1>
-    <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">Logout</a>
+    <h1>Админ удирдлага</h1>
+    <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">Гарах</a>
 </div>
 
 <div class="card">
     <div class="card-header">
-        <h3 class="mb-0">Pending Verification ({{ profiles|length }})</h3>
+        <h3 class="mb-0">Баталгаажуулалт хүлээж буй ({{ profiles|length }})</h3>
     </div>
     <div class="card-body">
         {% if profiles %}
@@ -18,11 +18,11 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>Nickname</th>
-                        <th>Age</th>
-                        <th>Location</th>
-                        <th>Submitted</th>
-                        <th>Action</th>
+                        <th>Нэр</th>
+                        <th>Нас</th>
+                        <th>Байршил</th>
+                        <th>Илгээсэн</th>
+                        <th>Үйлдэл</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,7 +33,7 @@
                         <td>{{ profile.location }}</td>
                         <td>{{ profile.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
                         <td>
-                            <a href="{{ url_for('admin_verify', profile_id=profile.id) }}" class="btn btn-primary btn-sm">Review</a>
+                            <a href="{{ url_for('admin_verify', profile_id=profile.id) }}" class="btn btn-primary btn-sm">Хянах</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -43,7 +43,7 @@
         {% else %}
         <div class="alert alert-info">
             <i class="fas fa-info-circle me-2"></i>
-            No pending verification requests. All profiles have been reviewed.
+            Баталгаажуулалт хүлээж буй хүсэлт байхгүй. Бүх профайл хянагдсан.
         </div>
         {% endif %}
     </div>

@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 
-{% block title %}Register as Escort{% endblock %}
+{% block title %}Эскорт бүртгүүлэх{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h2 class="mb-0">Register as Escort</h2>
+                <h2 class="mb-0">Эскорт бүртгүүлэх</h2>
             </div>
             <div class="card-body">
                 <form method="POST" action="">
@@ -25,7 +25,7 @@
                         {% else %}
                             {{ form.username(class="form-control") }}
                         {% endif %}
-                        <small class="form-text text-muted">Username must be at least 3 characters long.</small>
+                        <small class="form-text text-muted">Хэрэглэгчийн нэр дор хаяж 3 тэмдэгт байх ёстой.</small>
                     </div>
                     
                     <div class="mb-3">
@@ -40,7 +40,7 @@
                         {% else %}
                             {{ form.password(class="form-control") }}
                         {% endif %}
-                        <small class="form-text text-muted">Password must be at least 6 characters long.</small>
+                        <small class="form-text text-muted">Нууц үг дор хаяж 6 тэмдэгт байх ёстой.</small>
                     </div>
                     
                     <div class="mb-3">
@@ -63,22 +63,22 @@
                 </form>
                 
                 <div class="mt-3 text-center">
-                    <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+                    <p>Бүртгэлтэй юу? <a href="{{ url_for('login') }}">Энд нэвтрэх</a></p>
                 </div>
             </div>
         </div>
         
         <div class="card mt-4">
             <div class="card-header">
-                <h4 class="mb-0">Registration Process</h4>
+                <h4 class="mb-0">Бүртгүүлэх үйл явц</h4>
             </div>
             <div class="card-body">
                 <ol class="mb-0">
-                    <li>Create your account with a username and password</li>
-                    <li>Complete your profile with your details</li>
-                    <li>Upload a verification photo showing you holding a paper with "Mon Escort" and today's date</li>
-                    <li>Wait for admin approval (usually within 24 hours)</li>
-                    <li>Once approved, your profile will be visible to clients</li>
+                    <li>Хэрэглэгчийн нэр, нууц үгээр бүртгэл үүсгэх</li>
+                    <li>Профайлаа мэдээллээрээ бөглөх</li>
+                    <li>"Мон Эскорт" гэж бичсэн болон өнөөдрийн огноотой цаас барьсан баталгаажуулах зураг оруулах</li>
+                    <li>Админы зөвшөөрлийг хүлээх (ихэвчлэн 24 цагийн дотор)</li>
+                    <li>Зөвшөөрөгдсөний дараа таны профайл үйлчлүүлэгчдэд харагдах болно</li>
                 </ol>
             </div>
         </div>

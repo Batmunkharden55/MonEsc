@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
-{% block title %}Verify Profile{% endblock %}
+{% block title %}Профайл баталгаажуулах{% endblock %}
 
 {% block content %}
 <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Verify Profile</li>
+        <li class="breadcrumb-item"><a href="{{ url_for('admin_dashboard') }}">Админ удирдлага</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Профайл баталгаажуулах</li>
     </ol>
 </nav>
 
@@ -14,33 +14,33 @@
     <div class="col-md-6">
         <div class="card mb-4">
             <div class="card-header">
-                <h3 class="mb-0">Profile Information</h3>
+                <h3 class="mb-0">Профайлын мэдээлэл</h3>
             </div>
             <div class="card-body">
                 <h4>{{ profile.nickname }}</h4>
                 <table class="table">
                     <tr>
-                        <th width="30%">Phone Number:</th>
+                        <th width="30%">Утасны дугаар:</th>
                         <td>{{ profile.phone_number }}</td>
                     </tr>
                     <tr>
-                        <th>Age:</th>
-                        <td>{{ profile.age }} years</td>
+                        <th>Нас:</th>
+                        <td>{{ profile.age }} нас</td>
                     </tr>
                     <tr>
-                        <th>Weight:</th>
-                        <td>{{ profile.weight }} kg</td>
+                        <th>Жин:</th>
+                        <td>{{ profile.weight }} кг</td>
                     </tr>
                     <tr>
-                        <th>Height:</th>
-                        <td>{{ profile.height }} cm</td>
+                        <th>Өндөр:</th>
+                        <td>{{ profile.height }} см</td>
                     </tr>
                     <tr>
-                        <th>Location:</th>
+                        <th>Байршил:</th>
                         <td>{{ profile.location }}</td>
                     </tr>
                     <tr>
-                        <th>Submission Date:</th>
+                        <th>Илгээсэн огноо:</th>
                         <td>{{ profile.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
                     </tr>
                 </table>
@@ -49,7 +49,7 @@
         
         <div class="card">
             <div class="card-header">
-                <h3 class="mb-0">Verification Decision</h3>
+                <h3 class="mb-0">Баталгаажуулах шийдвэр</h3>
             </div>
             <div class="card-body">
                 <form method="POST" action="">
@@ -58,7 +58,7 @@
                     <div class="mb-3">
                         {{ form.verification_note.label(class="form-label") }}
                         {{ form.verification_note(class="form-control", rows=3) }}
-                        <small class="form-text text-muted">If rejecting, please provide a reason.</small>
+                        <small class="form-text text-muted">Цуцлах бол шалтгааныг заавал бичнэ үү.</small>
                     </div>
                     
                     <div class="d-flex justify-content-between mt-4">
@@ -73,28 +73,28 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h3 class="mb-0">Verification Image</h3>
+                <h3 class="mb-0">Баталгаажуулах зураг</h3>
             </div>
             <div class="card-body text-center">
                 {% if verification_image %}
                 <div class="verification-image-container mb-3">
                     <img src="{{ url_for('static', filename='uploads/' + verification_image.filename) }}" 
-                         alt="Verification image" class="img-fluid rounded verification-image">
+                         alt="Баталгаажуулах зураг" class="img-fluid rounded verification-image">
                 </div>
-                <p class="text-muted">Uploaded: {{ verification_image.upload_date.strftime('%Y-%m-%d %H:%M') }}</p>
+                <p class="text-muted">Оруулсан: {{ verification_image.upload_date.strftime('%Y-%m-%d %H:%M') }}</p>
                 <div class="alert alert-info">
                     <i class="fas fa-check-circle me-2"></i>
-                    <strong>Verification Requirements:</strong>
+                    <strong>Баталгаажуулах шаардлагууд:</strong>
                     <ul class="text-start mb-0 mt-2">
-                        <li>Image must clearly show the escort's face</li>
-                        <li>The escort must be holding a paper with "Mon Escort" written on it</li>
-                        <li>Today's date must be visible on the paper</li>
+                        <li>Зурагт эскортын нүүр тод харагдах ёстой</li>
+                        <li>"Мон Эскорт" гэж бичсэн цаас барьсан байх ёстой</li>
+                        <li>Цаасан дээр өнөөдрийн огноо байх ёстой</li>
                     </ul>
                 </div>
                 {% else %}
                 <div class="alert alert-warning">
                     <i class="fas fa-exclamation-triangle me-2"></i>
-                    No verification image found for this profile.
+                    Энэ профайлд баталгаажуулах зураг байхгүй байна.
                 </div>
                 {% endif %}
             </div>

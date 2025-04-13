@@ -1,32 +1,32 @@
 {% extends "layout.html" %}
 
-{% block title %}Find Escorts{% endblock %}
+{% block title %}Эскортууд хайх{% endblock %}
 
 {% block content %}
 <div class="row mb-4">
     <div class="col-12">
-        <h1>Find Escorts</h1>
-        <p class="lead">Browse our verified escorts and find your perfect companion.</p>
+        <h1>Эскортууд хайх</h1>
+        <p class="lead">Баталгаажсан эскортуудаас хамтрагчаа олоорой.</p>
     </div>
 </div>
 
 <!-- Filter section -->
 <div class="card mb-4">
     <div class="card-header">
-        <h5 class="mb-0">Filter Escorts</h5>
+        <h5 class="mb-0">Эскортууд шүүх</h5>
     </div>
     <div class="card-body">
         <form method="get" action="{{ url_for('escort_list') }}" class="row g-3">
             <div class="col-md-4">
-                <label for="age" class="form-label">Age</label>
+                <label for="age" class="form-label">Нас</label>
                 <input type="number" class="form-control" id="age" name="age" min="18" max="99" value="{{ age_filter or '' }}">
             </div>
             <div class="col-md-4">
-                <label for="weight" class="form-label">Weight (kg)</label>
+                <label for="weight" class="form-label">Жин (кг)</label>
                 <input type="number" class="form-control" id="weight" name="weight" min="30" max="200" value="{{ weight_filter or '' }}">
             </div>
             <div class="col-md-4">
-                <label for="location" class="form-label">Location</label>
+                <label for="location" class="form-label">Байршил</label>
                 <input type="text" class="form-control" id="location" name="location" value="{{ location_filter or '' }}" list="locationList">
                 <datalist id="locationList">
                     {% for location in locations %}
@@ -35,8 +35,8 @@
                 </datalist>
             </div>
             <div class="col-12 text-end">
-                <a href="{{ url_for('escort_list') }}" class="btn btn-secondary me-2">Clear Filters</a>
-                <button type="submit" class="btn btn-primary">Apply Filters</button>
+                <a href="{{ url_for('escort_list') }}" class="btn btn-secondary me-2">Шүүлтүүр цэвэрлэх</a>
+                <button type="submit" class="btn btn-primary">Шүүх</button>
             </div>
         </form>
     </div>
@@ -51,14 +51,14 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ escort.nickname }}</h5>
                     <div class="mb-3">
-                        <span class="badge bg-primary me-1">{{ escort.age }} years</span>
-                        <span class="badge bg-primary me-1">{{ escort.weight }} kg</span>
-                        <span class="badge bg-primary">{{ escort.height }} cm</span>
+                        <span class="badge bg-primary me-1">{{ escort.age }} нас</span>
+                        <span class="badge bg-primary me-1">{{ escort.weight }} кг</span>
+                        <span class="badge bg-primary">{{ escort.height }} см</span>
                     </div>
                     <p class="card-text">
                         <i class="fas fa-map-marker-alt me-2"></i>{{ escort.location }}
                     </p>
-                    <a href="{{ url_for('escort_detail', profile_id=escort.id) }}" class="btn btn-primary stretched-link">View Details</a>
+                    <a href="{{ url_for('escort_detail', profile_id=escort.id) }}" class="btn btn-primary stretched-link">Дэлгэрэнгүй харах</a>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
         <div class="col-12">
             <div class="alert alert-info">
                 <i class="fas fa-info-circle me-2"></i>
-                No escorts found matching your criteria. Try adjusting your filters.
+                Таны шүүлтүүрт тохирох эскорт олдсонгүй. Шүүлтүүрээ өөрчилж үзнэ үү.
             </div>
         </div>
     {% endif %}
@@ -75,6 +75,6 @@
 
 <!-- Client notification reminder -->
 <div class="alert alert-warning text-center mt-5">
-    <strong>Important Reminder:</strong> Урьдчилгаа өгж болохгүй
+    <strong>Чухал санамж:</strong> Урьдчилгаа өгж болохгүй
 </div>
 {% endblock %}
