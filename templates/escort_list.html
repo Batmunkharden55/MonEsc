@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}Find Escorts{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1>Find Escorts</h1>
+        <p class="lead">Browse our verified escorts and find your perfect companion.</p>
+    </div>
+</div>
+
+<!-- Filter section -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">Filter Escorts</h5>
+    </div>
+    <div class="card-body">
+        <form method="get" action="{{ url_for('escort_list') }}" class="row g-3">
+            <div class="col-md-4">
+                <label for="age" class="form-label">Age</label>
+                <input type="number" class="form-control" id="age" name="age" min="18" max="99" value="{{ age_filter or '' }}">
+            </div>
+            <div class="col-md-4">
+                <label for="weight" class="form-label">Weight (kg)</label>
+                <input type="number" class="form-control" id="weight" name="weight" min="30" max="200" value="{{ weight_filter or '' }}">
+            </div>
+            <div class="col-md-4">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" name="location" value="{{ location_filter or '' }}" list="locationList">
+                <datalist id="locationList">
+                    {% for location in locations %}
+                    <option value="{{ location }}">
+                    {% endfor %}
+                </datalist>
+            </div>
+            <div class="col-12 text-end">
+                <a href="{{ url_for('escort_list') }}" class="btn btn-secondary me-2">Clear Filters</a>
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Escorts list -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% if escorts %}
+        {% for escort in escorts %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ escort.nickname }}</h5>
+                    <div class="mb-3">
+                        <span class="badge bg-primary me-1">{{ escort.age }} years</span>
+                        <span class="badge bg-primary me-1">{{ escort.weight }} kg</span>
+                        <span class="badge bg-primary">{{ escort.height }} cm</span>
+                    </div>
+                    <p class="card-text">
+                        <i class="fas fa-map-marker-alt me-2"></i>{{ escort.location }}
+                    </p>
+                    <a href="{{ url_for('escort_detail', profile_id=escort.id) }}" class="btn btn-primary stretched-link">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                No escorts found matching your criteria. Try adjusting your filters.
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Client notification reminder -->
+<div class="alert alert-warning text-center mt-5">
+    <strong>Important Reminder:</strong> Урьдчилгаа өгж болохгүй
+</div>
+{% endblock %}

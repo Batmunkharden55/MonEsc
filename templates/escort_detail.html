@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ profile.nickname }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('escort_list') }}">Escorts</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ profile.nickname }}</li>
+            </ol>
+        </nav>
+    
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0">{{ profile.nickname }}</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Details</h4>
+                        <table class="table">
+                            <tr>
+                                <th>Age:</th>
+                                <td>{{ profile.age }} years</td>
+                            </tr>
+                            <tr>
+                                <th>Weight:</th>
+                                <td>{{ profile.weight }} kg</td>
+                            </tr>
+                            <tr>
+                                <th>Height:</th>
+                                <td>{{ profile.height }} cm</td>
+                            </tr>
+                            <tr>
+                                <th>Location:</th>
+                                <td>{{ profile.location }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-light mb-4">
+                            <div class="card-body text-center">
+                                <h4 class="mb-3">Contact Information</h4>
+                                <p class="mb-1"><i class="fas fa-phone me-2"></i>Phone Number:</p>
+                                <h5 class="text-primary">{{ profile.phone_number }}</h5>
+                                <p class="mt-3 small text-muted">When calling, mention that you found this escort on Mon Escort.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-warning mt-4">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Important Reminder:</strong> Урьдчилгаа өгж болохгүй
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="{{ url_for('escort_list') }}" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

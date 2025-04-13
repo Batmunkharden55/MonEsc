@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Admin Dashboard</h1>
+    <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">Logout</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="mb-0">Pending Verification ({{ profiles|length }})</h3>
+    </div>
+    <div class="card-body">
+        {% if profiles %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Nickname</th>
+                        <th>Age</th>
+                        <th>Location</th>
+                        <th>Submitted</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for profile in profiles %}
+                    <tr>
+                        <td>{{ profile.nickname }}</td>
+                        <td>{{ profile.age }}</td>
+                        <td>{{ profile.location }}</td>
+                        <td>{{ profile.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            <a href="{{ url_for('admin_verify', profile_id=profile.id) }}" class="btn btn-primary btn-sm">Review</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            No pending verification requests. All profiles have been reviewed.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

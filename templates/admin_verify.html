@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+
+{% block title %}Verify Profile{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Verify Profile</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="mb-0">Profile Information</h3>
+            </div>
+            <div class="card-body">
+                <h4>{{ profile.nickname }}</h4>
+                <table class="table">
+                    <tr>
+                        <th width="30%">Phone Number:</th>
+                        <td>{{ profile.phone_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Age:</th>
+                        <td>{{ profile.age }} years</td>
+                    </tr>
+                    <tr>
+                        <th>Weight:</th>
+                        <td>{{ profile.weight }} kg</td>
+                    </tr>
+                    <tr>
+                        <th>Height:</th>
+                        <td>{{ profile.height }} cm</td>
+                    </tr>
+                    <tr>
+                        <th>Location:</th>
+                        <td>{{ profile.location }}</td>
+                    </tr>
+                    <tr>
+                        <th>Submission Date:</th>
+                        <td>{{ profile.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">Verification Decision</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    
+                    <div class="mb-3">
+                        {{ form.verification_note.label(class="form-label") }}
+                        {{ form.verification_note(class="form-control", rows=3) }}
+                        <small class="form-text text-muted">If rejecting, please provide a reason.</small>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                        {{ form.reject(class="btn btn-danger") }}
+                        {{ form.approve(class="btn btn-success") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">Verification Image</h3>
+            </div>
+            <div class="card-body text-center">
+                {% if verification_image %}
+                <div class="verification-image-container mb-3">
+                    <img src="{{ url_for('static', filename='uploads/' + verification_image.filename) }}" 
+                         alt="Verification image" class="img-fluid rounded verification-image">
+                </div>
+                <p class="text-muted">Uploaded: {{ verification_image.upload_date.strftime('%Y-%m-%d %H:%M') }}</p>
+                <div class="alert alert-info">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <strong>Verification Requirements:</strong>
+                    <ul class="text-start mb-0 mt-2">
+                        <li>Image must clearly show the escort's face</li>
+                        <li>The escort must be holding a paper with "Mon Escort" written on it</li>
+                        <li>Today's date must be visible on the paper</li>
+                    </ul>
+                </div>
+                {% else %}
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    No verification image found for this profile.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+/* Main styling overrides */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+/* Verification image styling */
+.verification-image {
+    max-height: 500px;
+    object-fit: contain;
+}
+
+.verification-image-container {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Card hover effects */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Escort list cards */
+.escort-list .card {
+    height: 100%;
+}
+
+/* Custom alert styling */
+.alert-warning {
+    border-left: 5px solid #ffc107;
+}
+
+.alert-danger {
+    border-left: 5px solid #dc3545;
+}
+
+.alert-info {
+    border-left: 5px solid #0dcaf0;
+}
+
+.alert-success {
+    border-left: 5px solid #198754;
+}
+
+/* Admin dashboard styling */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+/* Custom button styles */
+.btn-primary {
+    font-weight: 500;
+}
+
+/* Form styles */
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Custom responsive adjustments */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .card-header {
+        padding: 0.75rem;
+    }
+}
